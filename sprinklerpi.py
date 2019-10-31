@@ -1,3 +1,4 @@
+import sys
 sys.path.append("home/pi/gardensystem")
 import hardware as hw
 import RPi.GPIO as GPIO
