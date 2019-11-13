@@ -72,3 +72,22 @@ class Photoresistor:
 
 def cleanup():
 	GPIO.cleanup()
+
+class L298n:
+	ena_pin = 'x'
+	in1_pin = 'x'
+	in2_pin = 'x'
+	speed = 'x'
+	run_time = 5
+	def run_pump(self):
+		GPIO.setup(self.ena_pin, GPIO.OUT)
+		GPIO.setup(self.in1_pin, GPIO.OUT)
+		GPIO.setup(self.in2_pin, GPIO.OUT)
+		GPIO.output(self.in1_pin, GPIO.LOW)
+		GPIO.output(self.in2_pin, GPIO.LOW)
+		pump = GPIO.PWM(ena_pin, 1000)
+		pump.start(speed)
+		GPIO.output(self.in1_pin, GPIO.HIGH)
+		time.sleep(run_time)
+		GPIO.output(self.in1_pin, GPIO.LOW)
+		break

@@ -1,28 +1,36 @@
+import os
 import sys
 sys.path.append("home/pi/gardensystem")
 import hardware as hw
 import RPi.GPIO as GPIO
-import Adafruit_DHT
-import time
-import os
+
+
+
 import ConfigParser
 #import MySQLdb as mysql
 import io
 import json
 
 #Import and parse pinout.ini for sensor pins
-configfile_name = "pinout.ini"
-with open("pinout.ini") as f:
-    sample_config = f.read()
+pinout = "pinout.ini"
+with open(pinout) as f:
+    pin_config = f.read()
 config = ConfigParser.RawConfigParser(allow_no_value=True)
-config.readfp(io.BytesIO(sample_config))
-GPIO.setmode(GPIO.BOARD)
+config.readfp(io.BytesIO(pin_config))
 
 #Assign pin numbers to variables
 phr = int(config.get('pinout','photoresistor'))
 dht = int(config.get('pinout','dht11'))
 ms = int(config.get('pinout','moisture_sensor'))
+pump = hw.l298n()
+pump.ena_pin = 22
+pump.in1_pin = 18
+pump.in2_pin = 16
+pump.speed = 25
+pump.run_time = 5
+run_pump()
 
+#Run
+#moisture = hw.moisture_check(ms);
 
-hw.rc_time(phr);
-hw.cleanup();
+#if (moisture == 0):
