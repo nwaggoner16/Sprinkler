@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import time
+import Adafruit_DHT
 
 class Valve:
 	# pin is a variable used to define output pin on rpi
@@ -42,24 +43,32 @@ class moisture_sensor:
 			return 1 # on
 		else:
 			return 0 # off
-        GPIO.cleanup()
+        GPIO.cleanup();
 
-def rc_time(self):
-    count = 0
+class DHT11:
+	humidity, temperature = Adafruit_DHT.read_retry(11, 27)  # GPIO27 (BCM notation)
+	temperature = temperature * 9/5 + 32
 
-    #Output on the pin for
-    GPIO.setup(phr, GPIO.OUT)
-    GPIO.output(phr, GPIO.LOW)
-    time.sleep(0.1)
+#Creating class for photoresistor
+class Photoresistor:
+	pin = 'x'
+	#Creating function to return light level from photoresistor, taking gpio pin number as input.
+	def return_light_level(self):
+	    count = 0
 
-    #Change the pin back to input
-    GPIO.setup(phr, GPIO.IN)
+	    #Output on the pin for
+	    GPIO.setup(self.pin, GPIO.OUT)
+	    GPIO.output(self.pin, GPIO.LOW)
+	    time.sleep(0.1)
 
-    #Count until the pin goes high
-    while (GPIO.input(phr) == GPIO.LOW):
-        count += 1
+	    #Change the pin back to input
+	    GPIO.setup(self.pin, GPIO.IN)
 
-    return count
-	
+	    #Count until the pin goes high
+	    while (GPIO.input(self.pin) == GPIO.LOW):
+	        count += 1
+
+	    return count
+
 def cleanup():
 	GPIO.cleanup()
