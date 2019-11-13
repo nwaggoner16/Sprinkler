@@ -43,7 +43,7 @@ class moisture_sensor:
 			return 1 # on
 		else:
 			return 0 # off
-        GPIO.cleanup();
+        GPIO.cleanup()
 
 class DHT11:
 	humidity, temperature = Adafruit_DHT.read_retry(11, 27)  # GPIO27 (BCM notation)
@@ -74,20 +74,22 @@ def cleanup():
 	GPIO.cleanup()
 
 class L298n:
-	ena_pin = 'x'
-	in1_pin = 'x'
-	in2_pin = 'x'
-	speed = 'x'
-	run_time = 5
+	def __init__(self, ena_pin, in1_pin, in2_pin, speed, run_time)
+		self.ena_pin = ena_pin
+		self.in1_pin = in1_pin
+		self.in2_pin = in2_pin
+		self.speed = speed
+		self.run_time = run_time
 	def run_pump(self):
+		GPIO.setmode(GPIO.BOARD)
 		GPIO.setup(self.ena_pin, GPIO.OUT)
 		GPIO.setup(self.in1_pin, GPIO.OUT)
 		GPIO.setup(self.in2_pin, GPIO.OUT)
 		GPIO.output(self.in1_pin, GPIO.LOW)
 		GPIO.output(self.in2_pin, GPIO.LOW)
-		pump = GPIO.PWM(ena_pin, 1000)
-		pump.start(speed)
+		pump = GPIO.PWM(self.ena_pin, 1000)
+		pump.start(self.speed)
 		GPIO.output(self.in1_pin, GPIO.HIGH)
-		time.sleep(run_time)
+		time.sleep(self.run_time)
 		GPIO.output(self.in1_pin, GPIO.LOW)
-		break
+		GPIO.cleanup()

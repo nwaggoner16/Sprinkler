@@ -22,13 +22,15 @@ config.readfp(io.BytesIO(pin_config))
 phr = int(config.get('pinout','photoresistor'))
 dht = int(config.get('pinout','dht11'))
 ms = int(config.get('pinout','moisture_sensor'))
-pump = hw.l298n()
-pump.ena_pin = 22
-pump.in1_pin = 18
-pump.in2_pin = 16
-pump.speed = 25
-pump.run_time = 5
-run_pump()
+#Create pump object using L298n class from hardware
+ena=int(config.get('L298n','ena'))
+in1=int(config.get('L298n','in1'))
+in2=int(config.get('L298n','in2'))
+speed=int(config.get('L298n','speed'))
+run_time=int(config.get('L298n','run_time'))
+pump = hw.L298n(ena, in1, in2, speed, run_time)
+
+pump.run_pump()
 
 #Run
 #moisture = hw.moisture_check(ms);
