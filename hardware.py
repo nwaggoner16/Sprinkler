@@ -3,32 +3,33 @@ import time
 import Adafruit_DHT
 
 class Valve:
+	def __init__(self, solenoid_pin, water_len = 10):
+		self.solenoid_pin = solenoid_pin
+		self.water_len = water_len
 	# pin is a variable used to define output pin on rpi
-	pin = 'x'
 	# measured in seconds
-	water_len = 10
-
 	def water(self):
 		# startup in board mode
 		GPIO.setmode(GPIO.BOARD)
 
 		# set pin[7] to output a signal
-		GPIO.setup(self.pin, GPIO.OUT)
+		GPIO.setup(self.solenoid_pin, GPIO.OUT)
 
 		# start sending trigger to relay
-		GPIO.output(self.pin,1)
+		GPIO.output(self.solenoid_pin,1)
 
 		# wait however long its set
 		time.sleep(self.water_len)
 
 		# stop
-		GPIO.output(self.pin, 0)
+		GPIO.output(self.solenoid_pin, 0)
         GPIO.cleanup()
 
 
 class moisture_sensor:
+	def __init__(self, moisture_pin):
+		self.moisture_pin = moisture_pin
 	# pin is a variable used to define output pin on rpi
-	pin = 'x'
 
 	def moisture_check(self):
 
@@ -36,10 +37,10 @@ class moisture_sensor:
 		GPIO.setmode(GPIO.BOARD)
 
 		# set pin[19] to input a signal
-		GPIO.setup(self.pin, GPIO.IN)
+		GPIO.setup(self.moisture_pin, GPIO.IN)
 
 		# listening for a signal from moisture sensor
-		if GPIO.input(self.pin):
+		if GPIO.input(self.moisture_pin):
 			return 1 # on
 		else:
 			return 0 # off
@@ -74,7 +75,7 @@ def cleanup():
 	GPIO.cleanup()
 
 class L298n:
-	def __init__(self, ena_pin, in1_pin, in2_pin, speed, run_time)
+	def __init__(self, ena_pin, in1_pin, in2_pin, speed, run_time):
 		self.ena_pin = ena_pin
 		self.in1_pin = in1_pin
 		self.in2_pin = in2_pin

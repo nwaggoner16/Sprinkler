@@ -28,11 +28,10 @@ in1=int(config.get('L298n','in1'))
 in2=int(config.get('L298n','in2'))
 speed=int(config.get('L298n','speed'))
 run_time=int(config.get('L298n','run_time'))
-pump = hw.L298n(ena, in1, in2, speed, run_time)
-
-pump.run_pump()
+pump1 = hw.L298n(ena, in1, in2, speed, run_time)
 
 #Run
-#moisture = hw.moisture_check(ms);
+moisture = hw.moisture_check(ms);
 
-#if (moisture == 0):
+if (moisture == 0):
+    pump1.run_pump()
