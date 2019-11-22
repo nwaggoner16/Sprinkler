@@ -29,9 +29,12 @@ in2=int(config.get('L298n','in2'))
 speed=int(config.get('L298n','speed'))
 run_time=int(config.get('L298n','run_time'))
 pump1 = hw.L298n(ena, in1, in2, speed, run_time)
-
+moisture_sensor1 = hw.moisture_sensor(ms)
 #Run
-moisture = hw.moisture_check(ms);
+moisture = moisture_sensor1.moisture_check()
 
 if (moisture == 0):
     pump1.run_pump()
+    print('pump running')
+else:
+    print(moisture)
