@@ -31,7 +31,10 @@ run_time=int(config.get('L298n','run_time'))
 pump1 = hw.L298n(ena, in1, in2, speed, run_time)
 
 #Run
-moisture = hw.moisture_check(ms);
-
-if (moisture == 0):
-    pump1.run_pump()
+moisture = hw.moisture_sensor(ms);
+temp = hw.DHT11()
+print(temp.read_dht())
+#if (moisture.moisture_check() == 0):
+#    print('Pump running')
+#pump1.run_pump()
+    

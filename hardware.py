@@ -23,7 +23,7 @@ class Valve:
 
 		# stop
 		GPIO.output(self.solenoid_pin, 0)
-        GPIO.cleanup()
+		GPIO.cleanup()
 
 
 class moisture_sensor:
@@ -44,11 +44,13 @@ class moisture_sensor:
 			return 1 # on
 		else:
 			return 0 # off
-        GPIO.cleanup()
+		GPIO.cleanup()
 
 class DHT11:
-	humidity, temperature = Adafruit_DHT.read_retry(11, 27)  # GPIO27 (BCM notation)
-	temperature = temperature * 9/5 + 32
+	def read_dht(self):
+		humidity, temperature = Adafruit_DHT.read_retry(11, 4)  # GPIO27 (BCM notation)
+		#temperature = temperature * 9/5 + 32
+		return humidity, temperature
 
 #Creating class for photoresistor
 class Photoresistor:
