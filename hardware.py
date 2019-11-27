@@ -1,6 +1,6 @@
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 import time
-import Adafruit_DHT
+#import Adafruit_DHT
 
 class Valve:
 	def __init__(self, solenoid_pin, water_len = 10):

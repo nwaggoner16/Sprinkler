@@ -2,10 +2,8 @@ import os
 import sys
 sys.path.append("home/pi/gardensystem")
 import hardware as hw
-import RPi.GPIO as GPIO
-
-
-
+from ldr import photoresistor as ph
+#import RPi.GPIO as GPIO
 import ConfigParser
 #import MySQLdb as mysql
 import io
@@ -30,11 +28,13 @@ speed=int(config.get('L298n','speed'))
 run_time=int(config.get('L298n','run_time'))
 pump1 = hw.L298n(ena, in1, in2, speed, run_time)
 moisture_sensor1 = hw.moisture_sensor(ms)
+pho = ph()
 #Run
-moisture = moisture_sensor1.moisture_check()
 
-if (moisture == 0):
+print(pho.check_light())
+"""if (moisture.moisture_check() == 0):
+    print('Pump running')
     pump1.run_pump()
     print('pump running')
 else:
-    print(moisture)
+    print(moisture)"""
